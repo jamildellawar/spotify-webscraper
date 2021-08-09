@@ -1,1 +1,32 @@
 # spotify-webscraper
+This is the original project I made on a weekend after our first task at Hallwood. We had to get all of the song names, artist names, producers, and songwriters from multiple Spotify Playlists for the managers to look through. The weekend after finishing the first spreadsheet, I created a program that uses the Spotify API to retreive all song and artist names from a Spotify playlists. The day after, I learned how to build a webscraper using Selenium and Beautiful Soup and added it to the program to also retrieve the producers and songwriters of a song in a playlist (since Spotify API does not give out this information). This is the intial program that definitely would do better with some cleaning up, however it does work as long as it is a Spotify Playlist that is editted (thus no Spotify Charts would work because the webscraper would go to the wrong div attribute. However, a hack to this would be making a playlist from that chart and running the program with the newly made playlist.
+
+If the playlist attributes are added to the "master doc", there a couple more features that this project provides. The main attribute is the master doc itself. Essentially, since Hallwood signs producers and songwriters, their main priority was to see which producers and songwriters were popping up the Spotify curated playlists. Thus, if a playlist was added to to the master doc, there were two sheets editted or created (if for some reason the sheet wasn't created yet). The master doc is a JSON file that held all songs (labeled with their titles and ISRC IDs) made by each producer or songwriter. For example, if Wu10 created a song on Most Necessary, his song would be added to the master doc and it would stay there noting that he has one song popping up on Spotify's curated playlists. Then again, if Wu10 pops up with a different song, this song would be added to his dictionary as a Producer. This creates a sheet that is then searcheable by name and can be sorted with the amount of songs the person has been involved in. 
+  
+In addition to the master doc, the playlist gets a master doc in a way. When the master doc decision is chosen, the playlist will have a document created called "All Songs from {playlist name}.csv", which will keep track of all songs that have ever been in the playlist (as long as you continue to update. By doing this, the code will also create a new document called "Songs from {playlist name} at {date}.csv". This is mainly for playlists like Billboard Hot 100 or Fresh Finds: Hip Hop because these have new entries each week, but when looking for the songs, we don't need to see past ones.
+
+  ### Problems I Had
+  1. One specific problem I ran into was Spotify API (and the Spotify interface) is wrong. For example, the curated playlists from Spotify (such as Most Necessary, Rap Caviar, Pop Rising, etc.) will always display on the API and the Playlist Header the amount of songs that the playlist should have. For example, Most Necessary is always supposed to have 100 songs. Thus, the API and the Playlist Header will always say/display that the playlist is supposed to have 100, no matter how much the playlist actually has. This was a problem for me for a bit because I used the API to check if the amount of songs from the API and Webscraper were the same before I merged the data (since they came from two separate sources). However, within the API information, the amount of song data that were in the playlists was accurate with the amount of songs on the actual playlist, so I decided to use that instead to check. 
+  
+  2. Another issue I ran into was some curated playlists from Spotify also had some blank info slots between weeks, especially when it is close to when the playlist updates. I noticed that would create issues because if it was empty, when I collected the data from the API it would still act as if it was filled. Thus, I just made an if statement to make sure my data would essentially ignore data coming from the API that was empty. 
+  
+  3. Another big issue I ran into was just learning how CSV creation worked and how to edit one. Overall this was an issue with just me not understanding how CSV files are read or written.
+
+
+### Notes About the Code (Original Credits)
+
+The "empty_master_dict_producers.json" and "empty_master_dict_songwriters.json" are just place holders because the actual master dictionaries already have previous entries as an example of what the entries look like. To use empty ones, delete the original one with entries and rename both to just "master_dict_type.json" where type is either "songwriters" or "producers".
+
+Also, in the entries, you will see whether values called "published" and "artist". This was put in because Hallwood wouldn't look to sign an artist, even though they are sometimes producers and/or songwriters of the song. Same goes for published, Hallwood wouldn't try to go for someone who is already published or managed. Currently, there is no function to actually change the values, purely because there is no easy way to find this information unless it's changed for each person, which each version of their name. I say each version of their name because usually in the songwriters section, people use their legal names and in the producer section people use their alias or their legal name. So, currently, this is a feature that hasn't been implemented yet but could definitely be useful.
+
+
+### My Messy Organization (Original Credits)
+
+Because this was a rushed project just to deliver results and I was still learning how to use Selenium, Beautiful Soup, and CSV Files, the code is really messy. I did my best to separate it into different classes and files however. This is my attempt at explaining my files.
+
+1. csv_writer.py: this file is all different functions that were used to create/edit/read CSV files
+2. final_v2.py: this file is what actually runs everything (it is v2 because the original was even messier than this one)
+3. gui.py: this file is the framework for the GUI when choosing what you want on your temporary CSV, and whether you would like to add the playlist songs onto the master document.
+4. p_s_dict.py: this file stood for producer and songwriter dictionary and it sorts the data into each dictionary/JSON file
+5. print_dict.py: this file only has one fuction, and it actually adds the songwriters/producers onto their master CVS files
+6. webscraper.py: this is the file where the webscraping happens using Selenium and Beautiful Soup
