@@ -13,14 +13,14 @@ In addition to the master doc, the playlist gets a master doc in a way. When the
   3. Another big issue I ran into was just learning how CSV creation worked and how to edit one. Overall this was an issue with just me not understanding how CSV files are read or written.
 
 
-### Notes About the Code (Original Credits)
+### Notes About the Code
 
 The "empty_master_dict_producers.json" and "empty_master_dict_songwriters.json" are just place holders because the actual master dictionaries already have previous entries as an example of what the entries look like. To use empty ones, delete the original one with entries and rename both to just "master_dict_type.json" where type is either "songwriters" or "producers".
 
 Also, in the entries, you will see whether values called "published" and "artist". This was put in because Hallwood wouldn't look to sign an artist, even though they are sometimes producers and/or songwriters of the song. Same goes for published, Hallwood wouldn't try to go for someone who is already published or managed. Currently, there is no function to actually change the values, purely because there is no easy way to find this information unless it's changed for each person, which each version of their name. I say each version of their name because usually in the songwriters section, people use their legal names and in the producer section people use their alias or their legal name. So, currently, this is a feature that hasn't been implemented yet but could definitely be useful.
 
 
-### My Messy Organization (Original Credits)
+### My Messy Organization
 
 Because this was a rushed project just to deliver results and I was still learning how to use Selenium, Beautiful Soup, and CSV Files, the code is really messy. I did my best to separate it into different classes and files however. This is my attempt at explaining my files.
 
