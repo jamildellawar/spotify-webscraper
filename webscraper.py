@@ -44,6 +44,7 @@ def getSongwritersAndProducers(playlist_id, total_amount_of_tracks, song_names =
             # Click more options for the song
             print(song)
             try: 
+                print(song)
                 song_section_menu_button = browser.find_element_by_xpath(f"//div[@role='grid']/div[2]/div[2]/div[@aria-rowindex='{song+1}']/div/div[5]/button[2]")
             except selenium.common.exceptions.NoSuchElementException:
                 print("couldn't find button")
@@ -53,7 +54,7 @@ def getSongwritersAndProducers(playlist_id, total_amount_of_tracks, song_names =
                 print("couldn't click the button")
             # Click See Credits
             try:
-                song_credits_button = browser.find_element_by_xpath("/html/body/div[15]/div/ul/li[5]/button")
+                song_credits_button = browser.find_element_by_xpath("/html/body/div[15]/div/ul/li[4]/button")
             except selenium.common.exceptions.NoSuchElementException:
                 print("couldn't find the button for credits")
             try:
@@ -76,6 +77,7 @@ def getSongwritersAndProducers(playlist_id, total_amount_of_tracks, song_names =
                 while not songwriter_done:
                     try:
                         songwriter_credits = browser.find_element_by_xpath(f"//div[@class = 'GenericModal ']/div/div[2]/div/div[2]/a[{str(a_songwriter_counter)}]")
+                        print(songwriter_credits)
                         a_songwriter_counter += 1
                     except selenium.common.exceptions.NoSuchElementException:
                         songwriter_credits = browser.find_element_by_xpath(f"//div[@class = 'GenericModal ']/div/div[2]/div/div[2]/span[{str(span_songwriter_counter)}]")
@@ -123,4 +125,5 @@ def getSongwritersAndProducers(playlist_id, total_amount_of_tracks, song_names =
         print("Done")
     return (songwriters, producers)
 
-# print(getSongwritersAndProducers('37i9dQZF1DWUa8ZRTfalHk', 85))
+# print(getSongwritersAndProducers('37i9dQZF1DX0XUsuxWHRQd', 50))
+#https://open.spotify.com/playlist/37i9dQZF1DX0XUsuxWHRQd?si=03e78d3050cb4db7
